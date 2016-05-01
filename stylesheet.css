@@ -1,0 +1,72 @@
+body { 
+  background: url(blackparquet.jpg) no-repeat center center fixed; 
+  background-size: cover;
+}
+
+.ui.card {
+	margin: 0;
+	padding: 1em;
+		width: 290px;
+	height: 410px;
+}
+
+.ui.card:last-child {
+
+    margin: 1em;
+    }
+
+
+.image {
+	width: 128px;
+	height: 128px;
+}
+
+
+.fname {
+	text-transform: capitalize;
+}
+
+.lname {
+	text-transform: capitalize;
+}
+
+.nameHi {
+	text-transform: capitalize;
+}
+
+.city {
+	text-transform: capitalize;
+}
+
+.address {
+	text-transform: capitalize;
+}
+.profilePic {
+		border-radius: 50%;
+
+}
+.cardWrapper {
+
+	display: flex;
+	  flex-flow: row wrap;
+	  margin-left: 25%;
+
+
+}
+
+.imageWrapper {
+	display: flex;
+	justify-content: center;
+	padding: 10px;
+
+}
+
+a.link {
+	text-decoration: none;
+	color: rgba(0, 0, 0, 0.68);
+}
+
+a.link:hover {
+	 color: blue;
+	 text-decoration: underline;
+}
