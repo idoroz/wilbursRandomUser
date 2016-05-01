@@ -123,6 +123,6 @@ var AllCardsView = Backbone.View.extend({
 });
 //instantiate view for all cards
 var AllUserCardsView = new AllCardsView([]);
-/*
+
 
 
