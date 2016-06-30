@@ -1,72 +1,104 @@
-body { 
-  background: url(blackparquet.jpg) no-repeat center center fixed; 
-  background-size: cover;
+body {
+    background: url(blackparquet.jpg) no-repeat center center fixed;
+    background-size: cover;
+    box-sizing: border-box;
 }
 
 .ui.card {
-	margin: 0;
-	padding: 1em;
-		width: 290px;
-	height: 410px;
+    margin: 0;
+    padding: 1em;
+    width: 290px;
+    height: 410px;
 }
 
 .ui.card:last-child {
-
     margin: 1em;
-    }
-
-
-.image {
-	width: 128px;
-	height: 128px;
 }
 
+.image {
+    width: 128px;
+    height: 128px;
+}
 
 .fname {
-	text-transform: capitalize;
+    text-transform: capitalize;
 }
 
 .lname {
-	text-transform: capitalize;
+    text-transform: capitalize;
 }
 
 .nameHi {
-	text-transform: capitalize;
+    text-transform: capitalize;
 }
 
 .city {
-	text-transform: capitalize;
+    text-transform: capitalize;
 }
 
 .address {
-	text-transform: capitalize;
+    text-transform: capitalize;
 }
+
 .profilePic {
-		border-radius: 50%;
-
+    border: 5px solid #fff;
+    height: 128px;
+    width: 128px;
+    overflow: hidden;
+    /*box-shadow: 2.5px 2.5px 2.5px 2.5px #111;  */
+    border-radius: 50%;
+    margin-top: -10px;
 }
+
+.morph {
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.morphAdd {
+    border-radius: 50%;
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+}
+
 .cardWrapper {
+    display: flex;
+    flex-flow: row wrap;
+    margin-left: 25%;
+}
 
-	display: flex;
-	  flex-flow: row wrap;
-	  margin-left: 25%;
+.descriptionWrapper {
+    display: none;
+}
 
-
+.friendSection {
+    display: none;
 }
 
 .imageWrapper {
-	display: flex;
-	justify-content: center;
-	padding: 10px;
-
+    display: flex;
+    justify-content: center;
+    padding: 10px;
 }
 
 a.link {
-	text-decoration: none;
-	color: rgba(0, 0, 0, 0.68);
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.68);
 }
 
 a.link:hover {
-	 color: blue;
-	 text-decoration: underline;
+    color: blue;
+    text-decoration: underline;
+}
+
+@media (max-width: 1366px) {
+    .cardWrapper {
+        margin-left: 15%;
+    }
 }

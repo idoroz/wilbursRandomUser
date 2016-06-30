@@ -1,18 +1,19 @@
-
 //A Random User model
 var User = Backbone.Model.extend({
-  defaults: {
-  	fname: '',
-  	lname: '',
-  	whatYear: '',
-  	city: '',
-  	address: '',
-  	cell: '',
-  	email: '',
-  	profPic: ''
+	defaults: {
+		fname: '',
+		lname: '',
+		whatYear: '',
+		city: '',
+		address: '',
+		cell: '',
+		email: '',
+		profPic: '',
+		following: '',
 
-  }
+	}
 });
+
 
 
 //Random users collection
@@ -23,69 +24,117 @@ var AllUsers = new Users([]);
 
 $(document).ready(function() {
 
+	$('#addCard').on('click', function() {
 
+		var req = $.ajax({
+			url: 'http://api.randomuser.me/?nat=gb',
+			dataType: 'json'
+		});
 
+		//};
+		//err function
+		var err = function(req, status, err) {
+			console.log("something went wrong!")
+		};
 
-$('#addCard').on('click', function() {
+		//the promise
+		req.then(function(resp) {
 
-	var req = $.ajax({
-  url: 'http://api.randomuser.me/?nat=gb',
-  dataType: 'json'
-});
+			storeCard(resp);
 
-
-//};
-//err function
-var err = function( req, status, err ) {
-  console.log("something went wrong!")
-};
-
-//the promise
-req.then(function(resp) {
-
-  storeCard(resp);
-
-
-}, err);
-})
+		}, err);
+	})
 });
 
 
 function storeCard(a) {
 
-var user1 = new User({
+	// improved
+	var userData = a.results[0];
+	// If you see the same shit repeating itself over and over,
+	// you can put it into a holder variable and then reference,
+	// that each time. It just makes much much cleaner code.
+	var user1 = new User({
+		fname: userData.name.first,
+		lname: userData.name.last,
 
-	 	fname: a.results[0].name.first,
-	 	lname: a.results[0].name.last,
-  	whatYear: a.results[0].registered,
-  	city: a.results[0].location.city,
-  	address: a.results[0].location.street,
-  	cell: a.results[0].cell,
-  	email: a.results[0].email,
-  	profPic: a.results[0].picture.large
+		whatYear: (function() {
+			return moment.unix(userData.registered).format("YYYY");
+		})(),
 
-});
-AllUsers.push(user1);
-console.log(AllUsers);
-	
+		city: userData.location.city,
+		address: userData.location.street,
+		cell: userData.cell,
+		email: userData.email,
+		profPic: userData.picture.large,
 
+		following: (function() {
+			return Math.floor(Math.random() * (320 - 80)) + 80;
+		})()
+	});
+
+	AllUsers.push(user1);
+	console.log(AllUsers);
+
+
+	$(".descriptionWrapper").last().queue(function(after) {
+		$(this).fadeIn('slow', function() {});
+		after();
+	});
+
+	$(".friendSection").last().queue(function(then) {
+		$(this).fadeIn('slow', function() {});
+		then();
+	});
+
+
+	$(".profilePic").delay(30).load(function() {
+		// Handler for .load() called. 
+		$('.profilePic').last().queue(function(next) {
+			$(this).addClass("morphAdd");
+			next();
+		});;
+
+	});
 
 }
 
 
+
 //Backbone view for card
 
-var ContactView = Backbone.View.extend({
+var CardView = Backbone.View.extend({
 	model: new User(),
 	tagName: 'div',
 
+
 	initialize: function() {
 
-		this.template=_.template($('.card-template').html());
+		this.template = _.template($('.card-template').html());
 
-
-		 
 	},
+
+	events: {
+		'click .deleteUser': 'deleteCard'
+
+	},
+
+	deleteCard: function() {
+
+		var target = $(event.target).parent();
+		$(target).fadeOut('slow', function() {});
+
+		var _this = this;
+		setTimeout(function() {
+			_this.model.destroy();
+			$(".descriptionWrapper").css("display", "flex");
+			$(".friendSection").css("display", "flex");
+		}, 1000);
+
+
+	},
+
+
 
 	render: function() {
 		this.$el.html(this.template(this.model.toJSON()));
@@ -108,14 +157,20 @@ var AllCardsView = Backbone.View.extend({
 			setTimeout(function() {
 				self.render();
 			}, 30)
-		} ,this);
+		}, this);
 		this.model.on('remove', this.render, this)
 	},
 	render: function() {
 		var self = this;
 		this.$el.html('');
 		_.each(this.model.toArray(), function(user) {
-			self.$el.append((new ContactView({model: user})).render().$el);
+			//after fade in description text stays
+			$(".descriptionWrapper").css("display", "flex");
+			$(".friendSection").css("display", "flex");
+			//
+			self.$el.append((new CardView({
+				model: user
+			})).render().$el);
 		});
 
 
@@ -123,6 +178,3 @@ var AllCardsView = Backbone.View.extend({
 });
 //instantiate view for all cards
 var AllUserCardsView = new AllCardsView([]);
-/*
-
-
