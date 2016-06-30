@@ -177,4 +177,11 @@ var AllCardsView = Backbone.View.extend({
 	}
 });
 //instantiate view for all cards
+<<<<<<< HEAD
 var AllUserCardsView = new AllCardsView([]);
+=======
+var AllUserCardsView = new AllCardsView([]);
+
+
+
+>>>>>>> a1cbab6dc899fab80dd7739c98dfd353c91f839f
