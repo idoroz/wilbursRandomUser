@@ -121,15 +121,11 @@ var CardView = Backbone.View.extend({
 
 	deleteCard: function() {
 
-		var target = $(event.target).parent();
-		$(target).fadeOut('slow', function() {});
-
 		var _this = this;
-		setTimeout(function() {
+
 			_this.model.destroy();
 			$(".descriptionWrapper").css("display", "flex");
 			$(".friendSection").css("display", "flex");
-		}, 1000);
 
 
 	},
