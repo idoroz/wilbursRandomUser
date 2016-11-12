@@ -27,7 +27,7 @@ $(document).ready(function() {
 	$('#addCard').on('click', function() {
 
 		var req = $.ajax({
-			url: 'https://api.randomuser.me/',
+			url: 'https://api.randomuser.me/?nat=gb',
 			dataType: 'json'
 		});
 
